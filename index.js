@@ -13,93 +13,7 @@ var vCard = (function () {
   var path = require('path');
 
     /**
-     * Get photo object for storing photos in vCards
-     */
-    function getPhoto() {
-        return {
-            url: '',
-            mediaType: '',
-            base64: false,
-
-            /**
-             * Attach a photo from a URL
-             * @param  {string} url       URL where photo can be found
-             * @param  {string} mediaType Media type of photo (JPEG, PNG, GIF)
-             */
-            attachFromUrl: function(url, mediaType) {
-                this.url = url;
-                this.mediaType = mediaType;
-                this.base64 = false;
-            },
-
-            /**
-             * Embed a photo from a file using base-64 encoding (not implemented yet)
-             * @param  {string} filename
-             */
-            embedFromFile: function(fileLocation) {
-              this.mediaType = path.extname(fileLocation).toUpperCase().replace(/\./g, "");
-              var imgData = fs.readFileSync(fileLocation);
-              this.url = imgData.toString('base64');
-              this.base64 = true;
-            }
-        };
-    }
-
-    /**
      * Get a mailing address to attach to a vCard.
-     */
-    function getMailingAddress() {
-        return {
-            /**
-             * Represents the actual text that should be put on the mailing label when delivering a physical package
-             * @type {String}
-             */
-            label: '',
-
-            /**
-             * Street address
-             * @type {String}
-             */
-            street: '',
-
-            /**
-             * City
-             * @type {String}
-             */
-            city: '',
-
-            /**
-             * State or province
-             * @type {String}
-             */
-            stateProvince: '',
-
-            /**
-             * Postal code
-             * @type {String}
-             */
-            postalCode: '',
-
-            /**
-             * Country or region
-             * @type {String}
-             */
-            countryRegion: ''
-        };
-    }
-
-    /**
-     * Get social media URLs
-     * @return {object} Social media URL hash group
-     */
-    function getSocialUrls() {
-        return {
-            'facebook': '',
-            'linkedIn': '',
-            'twitter': '',
-            'flickr': ''
-        };
-    }
 
     /********************************************************************************
      * Public interface for vCard
@@ -110,13 +24,13 @@ var vCard = (function () {
          * Date of birth
          * @type {Datetime}
          */
-        birthday: '',
+        bday: '',
 
         /**
          * Cell phone number
          * @type {String}
          */
-        cellPhone: '',
+        tel: [],
 
         /**
          * The address for electronic mail communication
@@ -125,16 +39,16 @@ var vCard = (function () {
         email: '',
 
         /**
-         * First name
-         * @type {String}
+         * name
+         * @type {Object}
          */
-        firstName: '',
+        n: {},
 
         /**
          * Formatted name string associated with the vCard object (will automatically populate if not set)
          * @type {String}
          */
-        formattedName: '',
+        fn: '',
 
         /**
          * Gender.
@@ -146,7 +60,7 @@ var vCard = (function () {
          * Home mailing address
          * @type {object}
          */
-        homeAddress: getMailingAddress(),
+        adr: [],
 
         /**
          * Home phone
@@ -159,30 +73,6 @@ var vCard = (function () {
          * @type {String}
          */
         lastName: '',
-
-        /**
-         * Logo
-         * @type {object}
-         */
-        logo: getPhoto(),
-
-        /**
-         * Middle name
-         * @type {String}
-         */
-        middleName: '',
-
-        /**
-         * Prefix for individual's name
-         * @type {String}
-         */
-        namePrefix: '',
-
-        /**
-         * Suffix for individual's name
-         * @type {String}
-         */
-        nameSuffix: '',
 
         /**
          * Nickname of individual
@@ -203,12 +93,6 @@ var vCard = (function () {
         organization: '',
 
         /**
-         * Individual's photo
-         * @type {object}
-         */
-        photo: getPhoto(),
-
-        /**
          * The role, occupation, or business category of the vCard object within an organization
          * @type {String}
          */
@@ -218,7 +102,7 @@ var vCard = (function () {
          * Social URLs attached to the vCard object (ex: Facebook, Twitter, LinkedIn)
          * @type {String}
          */
-        socialUrls: getSocialUrls(),
+        socialProfile: [],
 
         /**
          * A URL that can be used to get the latest version of this vCard
@@ -237,18 +121,6 @@ var vCard = (function () {
          * @type {String}
          */
         url: '',
-
-        /**
-         * Work mailing address
-         * @type {object}
-         */
-        workAddress: getMailingAddress(),
-
-        /**
-         * Work phone
-         * @type {String}
-         */
-        workPhone: '',
 
         /**
          * vCard version
