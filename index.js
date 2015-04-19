@@ -164,3 +164,4 @@ var vCard = (function () {
 });
 
 module.exports = vCard;
+
