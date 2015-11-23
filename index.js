@@ -42,7 +42,7 @@ var vCard = (function () {
          * name
          * @type {Object}
          */
-        n: {},
+        n: { first : '', middle : '', last : '' },
 
         /**
          * Formatted name string associated with the vCard object (will automatically populate if not set)
@@ -67,12 +67,6 @@ var vCard = (function () {
          * @type {String}
          */
         homePhone: '',
-
-        /**
-         * Last name
-         * @type {String}
-         */
-        lastName: '',
 
         /**
          * Nickname of individual
@@ -164,4 +158,3 @@ var vCard = (function () {
 });
 
 module.exports = vCard;
-
